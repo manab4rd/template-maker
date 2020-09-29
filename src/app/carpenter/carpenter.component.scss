@@ -1,0 +1,36 @@
+.bg-lightblue{ background: #f3f9ff!important}
+.delete-icon{
+    left:-30px; top:25%
+}
+.move-up{
+    right:-30px; top:0
+}
+
+
+.move-down{
+    right:-30px; top: 20px
+}
+.col-hovered{
+    background: #f7f1e3;
+    position: relative;
+    & i {
+        display: flex!important;
+        cursor:pointer;
+    }
+    & .component-wrapper {
+        transform: scale(.85);
+        opacity: .45;
+        animation-name: transformed;
+        animation-duration: 300ms;
+    }
+}
+
+@keyframes transformed {
+    from {transform: scale(1); opacity: 1;}
+    to {transform: scale(.85); opacity: .45;}
+}
+
+@keyframes transformedR {
+    from {transform: scale(.85); opacity: .45;}
+    to {transform: scale(1); opacity: 1;}
+}

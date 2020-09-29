@@ -1,0 +1,106 @@
+<div class="container mt-5">
+    <div class="row" cdkDropListGroup>
+        <div class="col-9">
+            <div class="card">
+                <div class="card-header">
+                    Template Maker
+                    <button class="btn btn-sm btn-primary" (click)="editView = !editView">{{[editView === true?'Preview':'Edit View']}}</button>
+                </div>
+                <div class="card-body">
+                    <div *ngIf="editView">
+                        <div *ngFor="let row of templateMetadata.rows; let i = index" class="flex-nowrap mb-2 mx-md-n1 row position-relative">
+                            <div [ngStyle]="{'flex' : row.ratio ? row.ratio.split(':')[j] : 1}" class="px-md-1" *ngFor="let column of row.columns; let j = index">
+                                <!--<div class="bg-light p-3" cdkDropList [cdkDropListData]="addToArr(j, column.wrapper)" (cdkDropListDropped)="drop($event)">{{column.wrapper}}
+                                    <div *ngFor="let item of componentsArr" cdkDrag>
+                                    <ng-container *ngComponentOutlet="item.component; injector: dynamicComponentInjector">
+                                    </ng-container>
+                                    </div>
+                                </div>-->
+                                <div *ngFor="let cp of componentList">
+                                    <div *ngIf="column.wrapper === cp.wrapper">
+                                        <div class="bg-lightblue p-3" cdkDropList [cdkDropListData]="cp.components" (cdkDropListDropped)="drop($event)" >
+                                            <div *ngFor="let item of cp.components" (mouseenter)="mouseenter($event)" (mouseleave)="mouseleave($event)" cdkDrag>
+                                            <i class="align-items-center bg-danger h-100 mdi mdi-24px mdi-trash-can-outline p-2 position-absolute text-white" style="display:none;"></i>
+                                            <div class="component-wrapper">
+                                                <ng-container *ngComponentOutlet="item.component; injector: dynamicComponentInjector">
+                                                </ng-container>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="badge badge-danger border-0 position-absolute delete-icon" (click)="removeRow(i)"><span class="mdi mdi-close"></span></button>
+                            <button *ngIf="i > 0" class="badge badge-warning border-0 position-absolute move-up" (click)="moveRow(i,i-1)"><i class="mdi mdi-arrow-up"></i></button>
+                            <button *ngIf="i < templateMetadata.rows.length - 1" class="badge badge-warning border-0 position-absolute move-down" (click)="moveRow(i,i+1)"><i class="mdi mdi-arrow-down"></i></button>
+                        </div>
+                        
+                    </div>
+
+                    <div id="ProductTemplate" *ngIf="!editView">
+                        <div *ngFor="let row of templateMetadata.rows; let i = index" class="flex-nowrap mx-md-n1 row position-relative">
+                            <div [ngStyle]="{'flex' : row.ratio ? row.ratio.split(':')[j] : 1}" class="px-md-1" *ngFor="let column of row.columns; let j = index">
+                                <div *ngFor="let cp of componentList">
+                                    <div *ngIf="column.wrapper === cp.wrapper">
+                                        <div class="p-3" cdkDropList [cdkDropListData]="cp.components" (cdkDropListDropped)="drop($event)">
+                                            <div *ngFor="let item of cp.components" cdkDrag>
+                                            <ng-container *ngComponentOutlet="item.component; injector: dynamicComponentInjector">
+                                            </ng-container>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                
+              <!--<div
+                cdkDropList
+                #todoList="cdkDropList"
+                [cdkDropListData]="dummyComponent"
+                class="w-100 card-body"
+                (cdkDropListDropped)="drop($event)">
+                    <div *ngFor="let item of dummyComponent" cdkDrag>
+                        <ng-container *ngComponentOutlet="item.component; injector: dynamicComponentInjector">
+                        </ng-container>
+                    </div>
+                </div>-->
+            </div>
+        </div>
+        <div class="col-3">
+            <fieldset class="card card-body">
+            <legend class="text-white bg-info text-center"> HTML ELements</legend>
+                <button class="btn btn-sm btn-outline-success m-2" (click)="addColumns(1)">Add 1 Column</button>
+                <button class="btn btn-sm btn-outline-success m-2" (click)="addColumns(2)">Add 2 Columns</button>
+                <button class="btn btn-sm btn-outline-success m-2" (click)="addColumns(3)">Add 3 Columns</button>
+                <button class="btn btn-sm btn-outline-success m-2" (click)="addColumns(2, '1:2')">Add 1:2 Columns</button>
+                <button class="btn btn-sm btn-outline-success m-2" (click)="addColumns(2, '2:1')">Add 2:1 Columns</button>
+
+
+            </fieldset>
+            <fieldset
+                cdkDropList
+                #doneList="cdkDropList"
+                [cdkDropListData]="attributes"
+                class="w-100 card card-body mt-3"
+                (cdkDropListDropped)="drop($event)">
+                <legend class="text-white bg-primary text-center"> Attributes</legend>
+                <div class="example-box" *ngFor="let item of attributes" cdkDrag>{{item.item}}</div>
+            </fieldset>
+
+            
+        </div>
+    </div>
+</div>
+
+<!--<a (click)="addComponent('columns')" class="btn btn-primary"> Add Column</a>
+
+
+<div *ngFor="let item of dummyComponent">
+    <ng-container *ngComponentOutlet="item.component">
+    </ng-container>
+</div>-->
+
